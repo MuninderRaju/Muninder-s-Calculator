@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Muninder's Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #b2dfdb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background: #26a69a;
+      padding: 20px;
+      border-radius: 25px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+      width: 320px;
+    }
+
+    .display-container {
+      background: #1b1b1b;
+      padding: 10px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    .brand {
+      font-size: 0.9em;
+      color: #7fffd4;
+      text-align: left;
+      padding-left: 5px;
+      font-weight: bold;
+    }
+
+    .display {
+      background: #d0f8ce;
+      color: #000;
+      font-family: 'Courier New', monospace;
+      font-size: 2em;
+      text-align: right;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 5px;
+      overflow-x: auto;
+      min-height: 50px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .btn {
+      background: #fff;
+      border: none;
+      padding: 20px;
+      font-size: 1.3em;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background: #e0f2f1;
+    }
+
+    .operator {
+      background: #fbc02d;
+    }
+
+    .operator:hover {
+      background: #f9a825;
+    }
+
+    .equal {
+      grid-column: span 2;
+      background: #ef5350;
+      color: white;
+    }
+
+    .equal:hover {
+      background: #e53935;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display-container">
+      <div class="brand">Muninder's Calculator</div>
+      <div class="display" id="display">0</div>
+    </div>
+    <div class="buttons">
+      <button class="btn" onclick="clearDisplay()">C</button>
+      <button class="btn" onclick="deleteChar()">⌫</button>
+      <button class="btn" onclick="append('%')">%</button>
+      <button class="btn operator" onclick="append('/')">÷</button>
+
+      <button class="btn" onclick="append('7')">7</button>
+      <button class="btn" onclick="append('8')">8</button>
+      <button class="btn" onclick="append('9')">9</button>
+      <button class="btn operator" onclick="append('*')">×</button>
+
+      <button class="btn" onclick="append('4')">4</button>
+      <button class="btn" onclick="append('5')">5</button>
+      <button class="btn" onclick="append('6')">6</button>
+      <button class="btn operator" onclick="append('-')">−</button>
+
+      <button class="btn" onclick="append('1')">1</button>
+      <button class="btn" onclick="append('2')">2</button>
+      <button class="btn" onclick="append('3')">3</button>
+      <button class="btn operator" onclick="append('+')">+</button>
+
+      <button class="btn" onclick="append('0')">0</button>
+      <button class="btn" onclick="append('.')">.</button>
+      <button class="btn equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById('display');
+
+    function append(char) {
+      if (display.innerText === '0') {
+        display.innerText = char;
+      } else {
+        display.innerText += char;
+      }
+    }
+
+    function clearDisplay() {
+      display.innerText = '0';
+    }
+
+    function deleteChar() {
+      display.innerText = display.innerText.slice(0, -1) || '0';
+    }
+
+    function calculate() {
+      try {
+        display.innerText = eval(display.innerText.replace('%', '/100'));
+      } catch {
+        display.innerText = 'Error';
+      }
+    }
+  </script>
+</body>
+</html>
